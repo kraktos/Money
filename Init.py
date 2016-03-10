@@ -6,10 +6,11 @@ import matplotlib.pyplot as mpl
 
 from core_ml.ml_stack import get_time_series_predictions
 
-time_series_df = Quandl.get("WIKI/AAPL")
+SHARE_ID = 'OECD/HEALTH_STAT_CICDHOCD_TXCMILTX_GBR'
+time_series_df = Quandl.get(SHARE_ID)
 print(type(time_series_df))
-
-column_name = 'Open'
+print ()
+column_name = 'Value'
 error, predicted_balance = get_time_series_predictions(pd.Series(time_series_df[column_name].tolist(),
                                                                              name=column_name))
 
@@ -23,6 +24,7 @@ fig = mpl.figure()
 y_val.plot()
 
 mpl.gcf().autofmt_xdate()
-mpl.savefig("MARKET_.png")
+mpl.title(SHARE_ID.replace(" ", "_").replace("/", "_"))
+mpl.savefig("{}.png".format(SHARE_ID.replace(" ", "_").replace("/", "_")))
 mpl.close(fig)
 
